@@ -1,7 +1,4 @@
-ARG BUILD_FROM
-FROM ${BUILD_FROM}
-
-RUN apk add --no-cache nodejs npm
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -9,6 +6,5 @@ COPY package.json ./
 RUN npm install --production
 
 COPY index.js ./
-COPY run.sh /
-RUN chmod a+x /run.sh
 
+CMD ["node", "index.js"]

@@ -1,16 +1,19 @@
-const CLIENT_ID = process.env.KICK_CLIENT_ID;
-const CLIENT_SECRET = process.env.KICK_CLIENT_SECRET;
-const SCAN_INTERVAL = parseInt(process.env.KICK_SCAN_INTERVAL || "30", 10) * 1000;
+import { readFileSync } from "fs";
+
+let options;
+try {
+  options = JSON.parse(readFileSync("/data/options.json", "utf-8"));
+} catch {
+  console.error("[ERROR] Could not read /data/options.json. Is this running as an HA add-on?");
+  process.exit(1);
+}
+
+const CLIENT_ID = options.client_id;
+const CLIENT_SECRET = options.client_secret;
+const SCAN_INTERVAL = (options.scan_interval || 30) * 1000;
 const SUPERVISOR_TOKEN = process.env.SUPERVISOR_TOKEN;
 const HA_API = "http://supervisor/core/api";
-
-let channels = [];
-try {
-  const raw = process.env.KICK_CHANNELS;
-  channels = JSON.parse(raw);
-} catch {
-  channels = (process.env.KICK_CHANNELS || "").split(",").map((s) => s.trim()).filter(Boolean);
-}
+const channels = options.channels || [];
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
   console.error("[ERROR] client_id and client_secret must be configured in the add-on options.");
