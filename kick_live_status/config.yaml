@@ -1,0 +1,25 @@
+name: "Kick Live Status"
+description: "Monitor Kick.com streamers and expose their live status as Home Assistant sensors"
+version: "1.0.0"
+slug: "kick_live_status"
+url: "https://github.com/aaronburt/kick_live_status"
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: services
+boot: auto
+homeassistant_api: true
+options:
+  client_id: ""
+  client_secret: ""
+  channels: []
+  scan_interval: 30
+schema:
+  client_id: str
+  client_secret: password
+  channels:
+    - str
+  scan_interval: "int(10,300)"
