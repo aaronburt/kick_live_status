@@ -9,7 +9,6 @@ COPY package.json ./
 RUN npm install --production
 
 COPY index.js ./
-COPY run.sh /run.sh
+COPY run.sh /
 RUN chmod a+x /run.sh
 
-CMD [ "/run.sh" ]
