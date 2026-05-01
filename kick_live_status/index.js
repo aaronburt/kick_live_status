@@ -122,6 +122,10 @@ async function updateChannel(channelData) {
     attribution: "Data provided by Kick.com API",
   };
 
+  if (isLive && channelData.category?.thumbnail) {
+    attributes.entity_picture = channelData.category.thumbnail;
+  }
+
   if (!isLive) {
     attributes.viewer_count = 0;
     attributes.started_at = "";
