@@ -124,8 +124,8 @@ async function updateChannel(channelData) {
     attribution: "Data provided by Kick.com API",
   };
 
-  if (isLive && profilePic) {
-    attributes.entity_picture = profilePic;
+  if (isLive && channelData.category?.thumbnail) {
+    attributes.entity_picture = channelData.category.thumbnail;
   }
 
   if (!isLive) {
