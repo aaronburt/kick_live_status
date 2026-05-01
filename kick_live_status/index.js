@@ -104,6 +104,8 @@ async function updateChannel(channelData) {
   const isLive = channelData.stream?.is_live ?? false;
   const state = isLive ? "on" : "off";
 
+  const profilePic = channelData.user?.profile_pic || channelData.user?.profile_picture || channelData.profile_picture || channelData.banner_picture || "";
+
   const attributes = {
     friendly_name: slug,
     device_class: "connectivity",
@@ -116,14 +118,14 @@ async function updateChannel(channelData) {
     language: channelData.stream?.language || "",
     is_mature: channelData.stream?.is_mature ?? false,
     started_at: channelData.stream?.start_time || "",
-    profile_picture: channelData.banner_picture || "",
+    profile_picture: profilePic,
     broadcaster_user_id: channelData.broadcaster_user_id,
     channel_url: `https://kick.com/${slug}`,
     attribution: "Data provided by Kick.com API",
   };
 
-  if (isLive && channelData.category?.thumbnail) {
-    attributes.entity_picture = channelData.category.thumbnail;
+  if (isLive && profilePic) {
+    attributes.entity_picture = profilePic;
   }
 
   if (!isLive) {
