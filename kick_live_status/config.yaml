@@ -1,6 +1,6 @@
 name: "Kick Live Status"
 description: "Monitor Kick.com streamers and expose their live status as Home Assistant sensors"
-version: "1.2.4"
+version: "1.2.5"
 slug: "kick_live_status"
 url: "https://github.com/aaronburt/kick_live_status"
 arch:
@@ -16,10 +16,10 @@ options:
   client_id: ""
   client_secret: ""
   channels: []
-  scan_interval: 30
+  scan_interval: 60
 schema:
   client_id: str
   client_secret: password
   channels:
     - str
-  scan_interval: "int(10,300)"
+  scan_interval: "int(30,300)"

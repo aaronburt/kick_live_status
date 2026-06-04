@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.5
+
+### Changed
+
+- Default scan interval increased from 30s to 60s
+- Minimum configurable scan interval raised from 10s to 30s
+
+### Added
+
+- Exponential backoff on consecutive poll failures (doubles each failure, max 12 hours)
+- Automatic recovery to base interval on successful poll
+
 ## 1.2.4
 
 ### Fixed

@@ -10,7 +10,10 @@ try {
 
 const CLIENT_ID = options.client_id;
 const CLIENT_SECRET = options.client_secret;
-const SCAN_INTERVAL = (options.scan_interval || 30) * 1000;
+const BASE_INTERVAL = (options.scan_interval || 60) * 1000;
+const MAX_INTERVAL = 12 * 60 * 60 * 1000;
+let currentInterval = BASE_INTERVAL;
+let consecutiveFailures = 0;
 const SUPERVISOR_TOKEN = process.env.SUPERVISOR_TOKEN;
 const HA_API = "http://supervisor/core/api";
 const channels = options.channels || [];
@@ -181,9 +184,24 @@ async function poll() {
         await markChannelUnavailable(slug);
       }
     }
+
+    if (consecutiveFailures > 0) {
+      console.log(`[POLL] Recovered after ${consecutiveFailures} failure(s), resetting interval to ${BASE_INTERVAL / 1000}s`);
+    }
+    consecutiveFailures = 0;
+    currentInterval = BASE_INTERVAL;
   } catch (err) {
-    console.error(`[POLL] Error: ${err.message}`);
+    consecutiveFailures++;
+    currentInterval = Math.min(BASE_INTERVAL * Math.pow(2, consecutiveFailures), MAX_INTERVAL);
+    console.error(`[POLL] Error: ${err.message} | next retry in ${Math.round(currentInterval / 1000)}s`);
   }
+}
+
+function scheduleNext() {
+  setTimeout(async () => {
+    await poll();
+    scheduleNext();
+  }, currentInterval);
 }
 
 async function main() {
@@ -191,13 +209,13 @@ async function main() {
   console.log("  Kick Live Status — Home Assistant Add-on");
   console.log("═".repeat(50));
   console.log(`  Channels: ${channels.join(", ")}`);
-  console.log(`  Scan interval: ${SCAN_INTERVAL / 1000}s`);
+  console.log(`  Scan interval: ${BASE_INTERVAL / 1000}s`);
+  console.log(`  Max backoff: ${MAX_INTERVAL / 1000}s`);
   console.log("═".repeat(50));
   console.log("");
 
   await poll();
-
-  setInterval(poll, SCAN_INTERVAL);
+  scheduleNext();
 
   process.on("SIGTERM", () => {
     console.log("[SHUTDOWN] Received SIGTERM, exiting...");
