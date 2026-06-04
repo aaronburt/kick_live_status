@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Upgraded base Docker image from Node 22 to Node 26 LTS
+- Upgraded base Docker image from Node 22 to Node 26
 
 ## 1.2.6
 
