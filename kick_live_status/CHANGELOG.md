@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.7
+
+### Changed
+
+- Upgraded base Docker image from Node 22 to Node 26 LTS
+
 ## 1.2.6
 
 ### Changed
