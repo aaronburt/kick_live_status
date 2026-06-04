@@ -32,6 +32,7 @@ if (!SUPERVISOR_TOKEN) {
 
 let accessToken = null;
 let tokenExpiresAt = 0;
+const previousState = new Map();
 
 async function getAccessToken() {
   if (accessToken && Date.now() < tokenExpiresAt) {
@@ -136,9 +137,13 @@ async function updateChannel(channelData) {
 
   const success = await setEntityState(entityId, state, attributes);
   if (success) {
-    const status = isLive ? "🟢 LIVE" : "🔴 Offline";
-    const extra = isLive ? ` | ${attributes.viewer_count} viewers | ${attributes.stream_title}` : "";
-    console.log(`[${slug}] ${status}${extra}`);
+    const prev = previousState.get(slug);
+    if (prev !== state) {
+      previousState.set(slug, state);
+      const status = isLive ? "🟢 LIVE" : "🔴 Offline";
+      const extra = isLive ? ` | ${attributes.viewer_count} viewers` : "";
+      console.log(`[${slug}] ${status}${extra}`);
+    }
   }
 }
 
