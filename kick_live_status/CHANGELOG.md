@@ -5,6 +5,7 @@
 ### Added
 
 - Added Home Assistant metadata labels (`io.hass.*`) to Dockerfile
+- Added third-party disclaimer to documentation
 
 ## 1.2.11
 
