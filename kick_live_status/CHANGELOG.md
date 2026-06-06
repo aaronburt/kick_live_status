@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.9
+
+### Added
+
+- Added custom AppArmor security profile to improve Home Assistant security rating to 6
+
 ## 1.2.8
 
 ### Added
