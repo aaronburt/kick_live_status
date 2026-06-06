@@ -14,6 +14,7 @@ This add-on polls the Kick.com API at a configurable interval and creates a `bin
 | `client_secret` | Your Kick.com app Client Secret | (required) |
 | `channels` | List of Kick channel slugs to monitor | `[]` |
 | `scan_interval` | Polling interval in seconds (10–300) | `30` |
+| `max_backoff` | Maximum exponential backoff interval in seconds | `43200` (12 hours) |
 
 ### Getting your Kick API credentials
 

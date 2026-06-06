@@ -11,7 +11,7 @@ try {
 const CLIENT_ID = options.client_id;
 const CLIENT_SECRET = options.client_secret;
 const BASE_INTERVAL = (options.scan_interval || 60) * 1000;
-const MAX_INTERVAL = 12 * 60 * 60 * 1000;
+const MAX_INTERVAL = (options.max_backoff || 43200) * 1000;
 let currentInterval = BASE_INTERVAL;
 let consecutiveFailures = 0;
 const SUPERVISOR_TOKEN = process.env.SUPERVISOR_TOKEN;

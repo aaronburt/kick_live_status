@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.8
+
+### Added
+
+- Added `max_backoff` configuration variable to customize maximum exponential backoff time
+
 ## 1.2.7
 
 ### Changed
