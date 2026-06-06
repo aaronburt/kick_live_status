@@ -1,6 +1,6 @@
 name: "Kick Live Status"
 description: "Monitor Kick.com streamers and expose their live status as Home Assistant sensors"
-version: "1.2.12"
+version: "1.2.13"
 slug: "kick_live_status"
 url: "https://github.com/aaronburt/kick_live_status"
 arch:
@@ -11,6 +11,9 @@ arch:
   - i386
 startup: services
 boot: auto
+ports:
+  "8080/tcp": null
+watchdog: "tcp://[HOST]:[PORT:8080]"
 homeassistant_api: true
 options:
   client_id: ""

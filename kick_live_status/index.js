@@ -1,4 +1,5 @@
 import { readFileSync } from "fs";
+import { createServer } from "net";
 
 let options;
 try {
@@ -214,16 +215,26 @@ async function main() {
   console.log("═".repeat(50));
   console.log("");
 
+  const watchdogServer = createServer((socket) => {
+    socket.write("OK");
+    socket.end();
+  });
+  watchdogServer.listen(8080, "0.0.0.0", () => {
+    console.log("[WATCHDOG] TCP server listening on port 8080");
+  });
+
   await poll();
   scheduleNext();
 
   process.on("SIGTERM", () => {
     console.log("[SHUTDOWN] Received SIGTERM, exiting...");
+    watchdogServer.close();
     process.exit(0);
   });
 
   process.on("SIGINT", () => {
     console.log("[SHUTDOWN] Received SIGINT, exiting...");
+    watchdogServer.close();
     process.exit(0);
   });
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.13
+
+### Added
+
+- Added native TCP health check endpoint for Home Assistant Supervisor watchdog integration
+
 ## 1.2.12
 
 ### Added
