@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.11
+
+### Fixed
+
+- Fixed AppArmor permissions for shell script interpreters
+
 ## 1.2.10
 
 ### Added
