@@ -3,6 +3,11 @@
 profile kick_live_status flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
+  /usr/bin/tini ix,
+  /sbin/tini ix,
+  /bin/sh ix,
+  /bin/busybox ix,
+  /usr/local/bin/docker-entrypoint.sh ix,
   /usr/local/bin/node ix,
   /usr/local/lib/** r,
   /usr/lib/** r,

@@ -1,10 +1,11 @@
 # Changelog
 
-## 1.2.9
+## 1.2.10
 
 ### Added
 
 - Added custom AppArmor security profile to improve Home Assistant security rating to 6
+- Tightened AppArmor permissions to least-privilege with entrypoint chain execution support
 
 ## 1.2.8
 
