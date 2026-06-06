@@ -1,5 +1,7 @@
 # Kick Live Status
 
+> **Disclaimer:** This is a third-party community add-on and is not affiliated with, endorsed by, or associated with Kick.com.
+
 Monitor Kick.com streamers and expose their live status as sensors in Home Assistant.
 
 ## How it works

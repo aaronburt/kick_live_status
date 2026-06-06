@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.12
+
+### Added
+
+- Added Home Assistant metadata labels (`io.hass.*`) to Dockerfile
+
 ## 1.2.11
 
 ### Fixed
